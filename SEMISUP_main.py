@@ -66,7 +66,7 @@ class SEMISUP_Wind(Ui_MainWindow, QMainWindow):
         self.convert2pic.clicked.connect(self.s2p_start)
 
     def s2pchanged(self):
-        self.convert2pic.setEnabled(not self.convert2pic.isEnabled())
+        self.convert2pic.setEnabled(self.singal2pic.isChecked())
 
     def s2p_start(self):
 
@@ -117,9 +117,10 @@ class SEMISUP_Wind(Ui_MainWindow, QMainWindow):
     def s2p_finish(self):
         QMessageBox.information(self, 'INFO', '转换完成!')
         self.trai_button.setEnabled(True)
-        #self.convert2pic.setEnabled(True)
-        #self.singal2pic.setEnabled(True)
+        self.convert2pic.setEnabled(True)
+        self.singal2pic.setEnabled(True)
         self.s2p_thread.quit()
+        self.convert_thread.change_status()
         self.convert_thread.quit()
         self.train_progressBar.setHidden(True)
 
@@ -201,6 +202,8 @@ class SEMISUP_Wind(Ui_MainWindow, QMainWindow):
         self.train_progressBar.setValue(0)
         self.train_progressBar.setHidden(False)
         self.show_tb_btn.setEnabled(True)
+        self.convert2pic.setEnabled(False)
+        self.singal2pic.setEnabled(False)
         self.draw_thread.start()
 
         self.trai_button.setEnabled(False)
@@ -239,8 +242,11 @@ class SEMISUP_Wind(Ui_MainWindow, QMainWindow):
         # 退出线程
         self.train_thread.quit()
         self.draw_thread.quit()
+        self.draw_thread.change_status()
         self.train_progressBar.setHidden(True)
         self.show_tb_btn.setEnabled(False)
+        self.convert2pic.setEnabled(self.convert2pic.setEnabled(self.singal2pic.isChecked()))
+        self.singal2pic.setEnabled(True)
         # 结束tensorboard
         self.pipe.terminate()
 
@@ -335,16 +341,20 @@ class Draw_in_time_thread(QThread):
     def __init__(self, runs_root):
         super(Draw_in_time_thread, self).__init__()
         self.runs_root = runs_root
+        self.is_draw = True
+        self.record_len = 0
 
     def run(self):
-        record_len = 0
-        while True:
+        while self.is_draw:
             if not os.path.exists(self.runs_root):
                 continue
             record = get_acc_loss(self.runs_root)
-            if len(record[0]) > record_len:
-                record_len = len(record[0])
-                self.sig.emit((record, record_len))
+            if len(record[0]) > self.record_len:
+                self.record_len = len(record[0])
+                self.sig.emit((record, self.record_len))
+
+    def change_status(self):
+        self.is_draw = False
 
 
 class Convert_in_time_thread(QThread):
@@ -353,14 +363,18 @@ class Convert_in_time_thread(QThread):
     def __init__(self, code_root):
         super(Convert_in_time_thread, self).__init__()
         self.temp_root = os.path.join(code_root, 'data_list.txt')
+        self.is_convert = True
 
     def run(self):
-        while True:
+        while self.is_convert:
             if not os.path.isfile(self.temp_root):
                 continue
             with open(self.temp_root, 'r') as f:
                 dealed_data_len = len(f.readlines())
             self.sig.emit(dealed_data_len)
+
+    def change_status(self):
+        self.is_convert = False
 
 
 if __name__ == '__main__':
