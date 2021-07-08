@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>前处理</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="deal_tab">
+       <attribute name="title">
+        <string>数据处理</string>
+       </attribute>
+       <attribute name="toolTip">
+        <string>支持用户自行定义截取信号长度、输入信号类型（如时域信号、频域信号等）</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QWidget" name="plot_widget" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QWidget" name="DIS_canvas" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>840</width>
+               <height>320</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="Dis_Layout"/>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="input_widget" native="true">
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="font">
+              <font>
+               <family>Agency FB</family>
+               <pointsize>24</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>半监督时， 无标签样本所占比例</string>
+             </property>
+             <property name="text">
+              <string>无标签比例：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QRadioButton" name="shiyu_btn">
+             <property name="font">
+              <font>
+               <pointsize>20</pointsize>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>输入为时域信号</string>
+             </property>
+             <property name="text">
+              <string>时域信号</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="font">
+              <font>
+               <family>Agency FB</family>
+               <pointsize>24</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>训练时验证集比例</string>
+             </property>
+             <property name="text">
+              <string>验证集比例：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <family>Agency FB</family>
+               <pointsize>24</pointsize>
+               <weight>50</weight>
+               <italic>false</italic>
+               <bold>false</bold>
+               <underline>false</underline>
+               <kerning>true</kerning>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>每段样本的长度</string>
+             </property>
+             <property name="text">
+              <string>样本长度：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="2">
+            <widget class="QLineEdit" name="val_pre_edit">
+             <property name="statusTip">
+              <string>0 - 100</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" colspan="2">
+            <widget class="QLineEdit" name="overlap_edit">
+             <property name="statusTip">
+              <string>0 - 100</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="data_long_edit">
+             <property name="statusTip">
+              <string>data length</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1" colspan="2">
+            <widget class="QLineEdit" name="unlabel_edit">
+             <property name="statusTip">
+              <string>0 - 100</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="font">
+              <font>
+               <family>Agency FB</family>
+               <pointsize>24</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>切分样本时重叠比例</string>
+             </property>
+             <property name="text">
+              <string>重叠率：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QPushButton" name="deal_btn">
+             <property name="statusTip">
+              <string>进行数据预处理</string>
+             </property>
+             <property name="text">
+              <string>预处理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QRadioButton" name="piny_btn">
+             <property name="font">
+              <font>
+               <pointsize>20</pointsize>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>输入为频域信号</string>
+             </property>
+             <property name="text">
+              <string>频域信号</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="2">
+            <widget class="QPushButton" name="select_floder_btn">
+             <property name="statusTip">
+              <string>选择数据所在文件夹， 其子文件夹包括类别，再下一级包括数据样本</string>
+             </property>
+             <property name="text">
+              <string>选择文件夹</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QCheckBox" name="plot_check">
+             <property name="font">
+              <font>
+               <pointsize>20</pointsize>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>是否绘制数据分布图</string>
+             </property>
+             <property name="text">
+              <string>绘制分布图</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="analy_tab">
+       <attribute name="title">
+        <string>时频分析</string>
+       </attribute>
+       <attribute name="toolTip">
+        <string>可以显示信号的时域、频域等特征</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="2" column="0">
+         <widget class="QPushButton" name="load_btn">
+          <property name="statusTip">
+           <string>加载单个样本， 进行时频分析</string>
+          </property>
+          <property name="text">
+           <string>加载样本</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="draw_btn">
+          <property name="statusTip">
+           <string>时域、频域分析</string>
+          </property>
+          <property name="text">
+           <string>绘图</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QWidget" name="SP_canvas" native="true">
+          <layout class="QVBoxLayout" name="SP_Layout"/>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="data_name_label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>24</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Name</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <tabstops>
+  <tabstop>data_long_edit</tabstop>
+  <tabstop>overlap_edit</tabstop>
+  <tabstop>val_pre_edit</tabstop>
+  <tabstop>unlabel_edit</tabstop>
+  <tabstop>shiyu_btn</tabstop>
+  <tabstop>piny_btn</tabstop>
+  <tabstop>plot_check</tabstop>
+  <tabstop>select_floder_btn</tabstop>
+  <tabstop>deal_btn</tabstop>
+  <tabstop>load_btn</tabstop>
+  <tabstop>draw_btn</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
