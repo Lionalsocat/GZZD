@@ -2,7 +2,7 @@
 from Code.Unsupervised import sae as SAE
 import numpy as np
 import os
-from keras.utils import to_categorical
+from keras.utils.np_utils import to_categorical
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from Code.suff_deal import get_acc_loss

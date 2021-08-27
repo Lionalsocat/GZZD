@@ -2,6 +2,7 @@ import keras
 from keras import layers
 from keras.models import Model
 from Code.Semi_supervised.utils import custom_activation
+import tensorflow as tf
 
 
 def define_discriminator(in_shape=(416, 416, 3), n_classes=7):
@@ -24,12 +25,12 @@ def define_discriminator(in_shape=(416, 416, 3), n_classes=7):
 
     c_out_layer = layers.Softmax(axis=-1)(fe)
     c_model = Model(in_image, c_out_layer)
-    c_model.compile(loss='sparse_categorical_crossentropy', optimizer=keras.optimizers.Adam(lr=0.0002, beta_1=0.5),
+    c_model.compile(loss='sparse_categorical_crossentropy', optimizer=tf.keras.optimizers.Adam(lr=0.0002, beta_1=0.5),
                     metrics=['accuracy'])
 
     d_out_layer = layers.Lambda(custom_activation)(fe)
     d_model = Model(in_image, d_out_layer)
-    d_model.compile(loss='binary_crossentropy', optimizer=keras.optimizers.Adam(lr=0.0002, beta_1=0.5))
+    d_model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.Adam(lr=0.0002, beta_1=0.5))
 
     return d_model, c_model
 
@@ -63,6 +64,6 @@ def define_gan(g_model, d_model):
     gan_output = d_model(g_model.output)
     model = Model(g_model.input, gan_output)
 
-    model.compile(loss='binary_crossentropy', optimizer=keras.optimizers.Adam(lr=0.0002, beta_1=0.5))
+    model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.Adam(lr=0.0002, beta_1=0.5))
     return model
 

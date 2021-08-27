@@ -4,16 +4,16 @@ import os
 import keras
 from keras.callbacks import TensorBoard
 import matplotlib.pyplot as plt
-from tensorflow.compat.v1 import ConfigProto
-from tensorflow.compat.v1 import InteractiveSession
+#from tensorflow.compat.v1 import ConfigProto
+#from tensorflow.compat.v1 import InteractiveSession
 
 
 def train(root_path, num_classes, epochs, batch_size, model_save_path, save_last):
 
     # 限制显存，防止报错
-    config = ConfigProto()
-    config.gpu_options.allow_growth = True
-    session = InteractiveSession(config=config)
+    #config = ConfigProto()
+    #config.gpu_options.allow_growth = True
+    #session = InteractiveSession(config=config)
 
     data_train = load_pic_data(os.path.join(root_path, 'data/train'))
     data_val = load_pic_data(os.path.join(root_path, 'data/val'))
@@ -31,7 +31,7 @@ def train(root_path, num_classes, epochs, batch_size, model_save_path, save_last
 
     model = MobileNetv2((416, 416, 3), num_classes)
     model.summary()
-    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='sgd', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     history = model.fit(x=data_train[0], y=data_train[1], epochs=epochs, batch_size=batch_size,
                         validation_data=(data_val[0], data_val[1]), shuffle=True, verbose=1,
                         callbacks=[check_point, history_callback, tb_callback])
